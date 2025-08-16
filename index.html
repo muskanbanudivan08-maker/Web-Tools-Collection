@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Tools Collection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --card-bg: #ffffff;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            box-shadow: 0 4px 12px var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 25px auto 15px;
+            position: relative;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: 50px;
+            border: none;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-container i {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+        }
+
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .category-btn {
+            padding: 12px 25px;
+            background: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 8px var(--shadow);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 0 20px;
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 6px 16px var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            background: linear-gradient(to right, var(--accent), var(--success));
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-header i {
+            font-size: 1.8rem;
+        }
+
+        .card-header h3 {
+            font-size: 1.4rem;
+        }
+
+        .card-content {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .tool-list {
+            list-style: none;
+        }
+
+        .tool-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tool-list li:last-child {
+            border-bottom: none;
+        }
+
+        .tool-list i {
+            color: var(--accent);
+            width: 24px;
+            text-align: center;
+        }
+
+        .card-footer {
+            padding: 15px 20px;
+            background: #f8f9fa;
+            text-align: center;
+        }
+
+        .btn {
+            padding: 10px 25px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background: var(--secondary);
+        }
+
+        .section-title {
+            text-align: center;
+            margin: 40px 0 30px;
+            font-size: 2rem;
+            color: var(--secondary);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #6c757d;
+        }
+
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .categories {
+                gap: 10px;
+            }
+            
+            .category-btn {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Web Tools Collection</h1>
+            <p>All-in-one toolkit for image editing, text processing, calculations, and more</p>
+            <div class="search-container">
+                <input type="text" placeholder="Search for tools...">
+                <i class="fas fa-search"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="categories">
+            <button class="category-btn active"><i class="fas fa-image"></i> Image Tools</button>
+            <button class="category-btn"><i class="fas fa-font"></i> Text Tools</button>
+            <button class="category-btn"><i class="fas fa-calculator"></i> Calculators</button>
+            <button class="category-btn"><i class="fas fa-download"></i> Download Tools</button>
+            <button class="category-btn"><i class="fas fa-globe"></i> Other Tools</button>
+        </div>
+
+        <h2 class="section-title">All Tools</h2>
+        
+        <div class="tools-grid">
+            <!-- Image Tools -->
+            <div class="tool-card">
+                <div class="card-header">
+                    <i class="fas fa-image"></i>
+                    <h3>Image Tools</h3>
+                </div>
+                <div class="card-content">
+                    <ul class="tool-list">
+                        <li><i class="fas fa-expand-arrows-alt"></i> Image Resizer</li>
+                        <li><i class="fas fa-exchange-alt"></i> Image Converter</li>
+                        <li><i class="fas fa-compress-arrows-alt"></i> Image Compressor</li>
+                        <li><i class="fas fa-eraser"></i> Background Remover</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <button class="btn">Use Image Tools</button>
+                </div>
+            </div>
+            
+            <!-- Text Tools -->
+            <div class="tool-card">
+                <div class="card-header">
+                    <i class="fas fa-font"></i>
+                    <h3>Text Tools</h3>
+                </div>
+                <div class="card-content">
+                    <ul class="tool-list">
+                        <li><i class="fas fa-sort-numeric-up"></i> Word Counter</li>
+                        <li><i class="fas fa-text-height"></i> Character Counter</li>
+                        <li><i class="fas fa-language"></i> Translator</li>
+                        <li><i class="fas fa-file-contract"></i> Text Summarizer</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <button class="btn">Use Text Tools</button>
+                </div>
+            </div>
+            
+            <!-- Calculator Tools -->
+            <div class="tool-card">
+                <div class="card-header">
+                    <i class="fas fa-calculator"></i>
+                    <h3>Calculator Tools</h3>
+                </div>
+                <div class="card-content">
+                    <ul class="tool-list">
+                        <li><i class="fas fa-birthday-cake"></i> Age Calculator</li>
+                        <li><i class="fas fa-weight"></i> BMI Calculator</li>
+                        <li><i class="fas fa-money-check-alt"></i> Loan/EMI Calculator</li>
+                        <li><i class="fas fa-percentage"></i> Percentage Calculator</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <button class="btn">Use Calculators</button>
+                </div>
+            </div>
+            
+            <!-- Download Tools -->
+            <div class="tool-card">
+                <div class="card-header">
+                    <i class="fas fa-download"></i>
+                    <h3>Download Tools</h3>
+                </div>
+                <div class="card-content">
+                    <ul class="tool-list">
+                        <li><i class="fas fa-film"></i> Video Downloader</li>
+                        <li><i class="fas fa-music"></i> Audio Downloader</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <button class="btn">Use Download Tools</button>
+                </div>
+            </div>
+            
+            <!-- Other Web Tools -->
+            <div class="tool-card">
+                <div class="card-header">
+                    <i class="fas fa-globe"></i>
+                    <h3>Other Web Tools</h3>
+                </div>
+                <div class="card-content">
+                    <ul class="tool-list">
+                        <li><i class="fas fa-qrcode"></i> QR Code Generator</li>
+                        <li><i class="fas fa-key"></i> Password Generator</li>
+                        <li><i class="fas fa-file-pdf"></i> PDF Tools</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <button class="btn">Use Web Tools</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Web Tools Collection &copy; 2026 | All Rights Reserved</p>
+    </footer>
+
+    <script>
+        // Add interactivity to category buttons
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+            });
+        });
+        
+        // Add tooltip functionality to tool list items
+        const toolItems = document.querySelectorAll('.tool-list li');
+        
+        toolItems.forEach(item => {
+            item.addEventListener('click', () => {
+                // Get tool name
+                const toolName = item.textContent.trim();
+                alert(`You selected: ${toolName}\nThis feature would open the tool in a real implementation.`);
+            });
+        });
+        
+        // Add hover effect to buttons
+        const buttons = document.querySelectorAll('.btn');
+        
+        buttons.forEach(button => {
+            button.addEventListener('mouseover', () => {
+                button.style.transform = 'scale(1.05)';
+            });
+            
+            button.addEventListener('mouseout', () => {
+                button.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
