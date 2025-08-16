@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: /tmp/
+Disallow: /cgi-bin/
+Disallow: /dashboard/
+Disallow: /user-accounts/
+Disallow: /uploads/
+Disallow: /*.php$
+Disallow: /*.log$
+
+Sitemap: https://yourdomain.com/sitemap.xml
