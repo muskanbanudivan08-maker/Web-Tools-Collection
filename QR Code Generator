@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue QR Code Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            background-color: #f0f8ff;
+        }
+        h1 {
+            color: #1565c0;
+        }
+        #qr-input {
+            width: 100%;
+            padding: 12px;
+            margin: 20px 0;
+            border: 2px solid #90caf9;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        #qr-input:focus {
+            outline: none;
+            border-color: #1976d2;
+            box-shadow: 0 0 5px rgba(25, 118, 210, 0.5);
+        }
+        #generate-btn {
+            background-color: #1976d2;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        #generate-btn:hover {
+            background-color: #1565c0;
+        }
+        #qr-code {
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 300px;
+        }
+        .download-btn {
+            display: none;
+            background-color: #2196F3;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .download-btn:hover {
+            background-color: #0d47a1;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Blue QR Code Generator</h1>
+        <p>Enter text or URL to generate a QR code:</p>
+        
+        <input type="text" id="qr-input" placeholder="Enter text or URL here...">
+        <button id="generate-btn">Generate QR Code</button>
+        
+        <div id="qr-code"></div>
+        <a href="#" id="download-btn" class="download-btn" download="qrcode.png">Download QR Code</a>
+    </div>
+    
+    <script>
+        document.getElementById('generate-btn').addEventListener('click', function() {
+            const inputText = document.getElementById('qr-input').value.trim();
+            const qrCodeContainer = document.getElementById('qr-code');
+            const downloadBtn = document.getElementById('download-btn');
+            
+            if (inputText === '') {
+                alert('Please enter some text or URL');
+                return;
+            }
+            
+            // Clear previous QR code
+            qrCodeContainer.innerHTML = '';
+            
+            // Create QR code image with blue color
+            const qrCodeImg = document.createElement('img');
+            const encodedText = encodeURIComponent(inputText);
+            qrCodeImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodedText}&color=1976D2`;
+            qrCodeImg.alt = 'QR Code';
+            
+            qrCodeContainer.appendChild(qrCodeImg);
+            
+            // Set download link
+            downloadBtn.href = qrCodeImg.src;
+            downloadBtn.style.display = 'inline-block';
+        });
+    </script>
+</body>
+</html>
